@@ -1,16 +1,30 @@
-# Teams Attendence Metrics
-Collate information from Teams attendence reports
+# Zoom Attendence Metrics
+Collate information from Zoom attendence reports
 
 ## Requirements
 python 3.11\
 pandas
+
+## Set up
+In terminal:
+```
+pip install pandas
+```
+or 
+```
+pip3 install pandas
+```
 
 ## How to use
 In terminal run:
 ```
 python AttendeeMetrics.py Input Output
 ```
-Where Input is the path to the folder containing the Teams attendence reports and Output is the path to the folder where you want to save the results. These two folders must be different.
+or
+```
+python3 AttendeeMetrics.py Input Output
+``` 
+where Input is the path to the folder containing files or folders with Zoom attendence reports and Output is the path to the folder where you want to save the results. These two folders must be different.
 
 ## Output
 The script should output three .csv files
