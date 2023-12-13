@@ -64,9 +64,12 @@ def calculateAttendeeMetrics(inputpath, outputpath):
             for filename in files:
                 print(os.path.join(root, filename))
                 if substring in filename:
-                    topic,df=getData(os.path.join(root, filename))
-                    df[topic]=[1]*df.shape[0]
-                    finaldf=pd.merge(finaldf,df,how='outer',on=['User Name','Email','Country/Region Name'])
+                    try:
+                        topic,df=getData(os.path.join(root, filename))
+                        df[topic]=[1]*df.shape[0]
+                        finaldf=pd.merge(finaldf,df,how='outer',on=['User Name','Email','Country/Region Name'])
+                    except:
+                        print('Could not process file ',os.path.join(root, filename))
         finaldf.iloc[:, 3:] = finaldf.iloc[:, 3:].fillna(value=0)
         # Total sessions attended by attendee
         finaldf.insert(loc=3, column='Total Sessions Attended', value=finaldf[finaldf.columns[3:]].sum(axis=1))
