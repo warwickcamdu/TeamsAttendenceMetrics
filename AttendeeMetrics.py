@@ -62,6 +62,7 @@ def calculateAttendeeMetrics(inputpath, outputpath):
         substring = 'Attendee Report.csv'
         for root, subdirs, files in os.walk(inputpath):
             for filename in files:
+                print(os.path.join(root, filename))
                 if substring in filename:
                     topic,df=getData(os.path.join(root, filename))
                     df[topic]=[1]*df.shape[0]
