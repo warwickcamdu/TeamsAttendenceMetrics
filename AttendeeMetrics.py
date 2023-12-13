@@ -59,11 +59,13 @@ def calculateAttendeeMetrics(inputpath, outputpath):
     # Create dataframes with total values and output to .csv files
     if inputpath != outputpath:
         finaldf=pd.DataFrame(columns=['User Name','Email','Country/Region Name'])
-        for filename in os.listdir(inputpath):
-            if filename.endswith('.csv'):
-                topic,df=getData(os.path.join(inputpath, filename))
-                df[topic]=[1]*df.shape[0]
-                finaldf=pd.merge(finaldf,df,how='outer',on=['User Name','Email','Country/Region Name'])
+        substring = 'Attendee Report.csv'
+        for root, subdirs, files in os.walk(inputpath):
+            for filename in files:
+                if substring in filename:
+                    topic,df=getData(os.path.join(root, filename))
+                    df[topic]=[1]*df.shape[0]
+                    finaldf=pd.merge(finaldf,df,how='outer',on=['User Name','Email','Country/Region Name'])
         finaldf.iloc[:, 3:] = finaldf.iloc[:, 3:].fillna(value=0)
         # Total sessions attended by attendee
         finaldf.insert(loc=3, column='Total Sessions Attended', value=finaldf[finaldf.columns[3:]].sum(axis=1))
